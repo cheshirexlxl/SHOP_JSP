@@ -2,3 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/layout/jstl.jsp" %>
 <%@ include file="/layout/common.jsp" %>
+<jsp:include page="/layout/top.jsp" />
+
+

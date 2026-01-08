@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-로그인/가입/수정 완료 페이지
+이미 로그인된 경우 5초후 메인화면으로 이동 페이지
 </body>
 </html>

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-로그인/가입/수정 완료 페이지
+로그인 페이지
 </body>
 </html>

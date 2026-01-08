@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-로그인/가입/수정 완료 페이지
+상품 삭제 처리 – 삭제 후, 상품 편집으로 이동
 </body>
 </html>

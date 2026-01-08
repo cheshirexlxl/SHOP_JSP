@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-로그인/가입/수정 완료 페이지
+장바구니 등록 처리 – 등록 후, 상품 목록으로 이동
 </body>
 </html>
