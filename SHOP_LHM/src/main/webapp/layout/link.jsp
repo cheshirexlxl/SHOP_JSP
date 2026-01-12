@@ -11,4 +11,4 @@
 <!-- material design icon -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link href="${ root }/static/css/style.css" rel="stylesheet" />
+<link href="${ root }/static/css/style.css?v=1.0" rel="stylesheet" />

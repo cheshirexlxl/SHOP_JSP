@@ -32,10 +32,7 @@ public class EncodingFilter extends HttpFilter implements Filter {
     // 필터 작업 메소드
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		System.out.println("인코딩 필터 : " + encoding);
-		// 인코딩 설정
 		request.setCharacterEncoding(encoding);
-		response.setCharacterEncoding(encoding);
-		response.setContentType("text/plain; charset=" + encoding);
 		// 다음 필터를 호출
 		chain.doFilter(request, response);		
 	}
