@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/layout/jstl.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/layout/meta.jsp" />
-	<jsp:include page="/layout/link.jsp" />
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
+상품 등록 처리 (기존 add_pro.jsp)
+</body>
+</html>

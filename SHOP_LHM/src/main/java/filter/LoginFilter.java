@@ -23,14 +23,14 @@ public class LoginFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 6470731114379833406L;	
 
-	private UserRepository userRepository;
+	UserRepository userDAO;
 	
     public LoginFilter() {
         super();        
     }
     
     public void init(FilterConfig fConfig) throws ServletException {
-    	userRepository = new UserRepository();    
+    	userDAO = new UserRepository();    
     }
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -74,12 +74,12 @@ public class LoginFilter extends HttpFilter implements Filter {
     	if( rememberMe != null && token != null ) {
     		System.out.println("rememberMe : " + rememberMe);
     		System.out.println("token : " + token);
-    		PersistentLogin persistentLogin = userRepository.selectTokenByToken(token);
+    		PersistentLogin persistentLogin = userDAO.selectTokenByToken(token);
     		System.out.println("persistentLogin : " + persistentLogin);    		
     		// 토큰이 존재 & 유효 OK
     		if( persistentLogin != null ) {
     			loginId = persistentLogin.getUserId();
-				loginUser = userRepository.selectByUsername(loginId);
+				loginUser = userDAO.selectByUsername(loginId);
 				System.out.println("loginId : " + loginId);
 				System.out.println("loginUser : " + loginUser);
 				// 로그인 처리

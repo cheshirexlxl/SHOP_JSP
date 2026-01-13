@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-회원 정보 수청 처리
+장바구니 페이지 (기존 cart.jsp)
 </body>
 </html>

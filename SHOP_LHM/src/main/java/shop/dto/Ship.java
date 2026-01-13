@@ -1,5 +1,8 @@
 package shop.dto;
 
+/**
+ * 배송 정보를 담는 DTO 클래스
+ */
 public class Ship {
 
 	private String cartId;

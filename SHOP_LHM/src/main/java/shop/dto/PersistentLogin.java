@@ -2,10 +2,12 @@ package shop.dto;
 
 import java.util.Date;
 
+/**
+ * 자동 로그인 정보를 담는 DTO 클래스
+ */
 public class PersistentLogin {
 	private int pNo;
     private String userId;
-    private String username;
     private String token;
     private Date date; // Timestamp를 Date로 변경
 
@@ -15,14 +17,6 @@ public class PersistentLogin {
 
     public void setpNo(int pNo) {
         this.pNo = pNo;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
     
     public String getUserId() {

@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-@WebServlet("/shop/img")
+@WebServlet("/img")
 public class ImgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;       
 
@@ -22,6 +22,7 @@ public class ImgServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// 프로젝트 내 img 경로 가져오기
 		ServletContext context = getServletContext();
 		String imgPath = context.getRealPath("/static/img");
