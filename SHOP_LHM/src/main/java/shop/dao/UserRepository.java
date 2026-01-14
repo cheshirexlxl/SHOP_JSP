@@ -14,7 +14,28 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int insert(User user) {
-		return 0;
+		// TODO: 회원 등록 기능 구현
+		int result = 0;
+		
+		String sql = " INSERT INTO user(id, password, name, gender, birth, mail, phone, address )"
+				   + " VALUES ( ?, ?, ?, ?, ?, ?, ? ,? ) ";
+		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, user.getId());
+			psmt.setString(2, user.getPassword());
+			psmt.setString(3, user.getName());
+			psmt.setString(4, user.getGender());
+			psmt.setString(5, user.getBirth());
+			psmt.setString(6, user.getMail());
+			psmt.setString(7, user.getPhone());
+			psmt.setString(8, user.getAddress());
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			System.err.println("회원 등록 시, 예외 발생");
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	
@@ -27,17 +48,7 @@ public class UserRepository extends JDBConnection {
 	public User login(String id, String pw) {
 		return null;
 	}
-	
-	/**
-	 * 
-	 * @param username
-	 * @return
-	 */
-	public User selectByUsername(String username) {
-		return null;
-	}
-	
-	
+
 	
 	/**
 	 * 로그인을 위한 사용자 조회

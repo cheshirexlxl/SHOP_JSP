@@ -23,6 +23,7 @@ public class LoginFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 6470731114379833406L;	
 
+	Cookie[] cookies;
 	UserRepository userDAO;
 	
     public LoginFilter() {
@@ -79,7 +80,7 @@ public class LoginFilter extends HttpFilter implements Filter {
     		// 토큰이 존재 & 유효 OK
     		if( persistentLogin != null ) {
     			loginId = persistentLogin.getUserId();
-				loginUser = userDAO.selectByUsername(loginId);
+				loginUser = userDAO.getUserById(loginId);
 				System.out.println("loginId : " + loginId);
 				System.out.println("loginUser : " + loginUser);
 				// 로그인 처리
