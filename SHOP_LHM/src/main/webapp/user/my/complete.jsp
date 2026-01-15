@@ -21,7 +21,7 @@
 		*/
 		if(msg != null) {
 			switch (msg) {
-				case "0" : text = "로그인이 완료되었습니다."; break;
+				case "0" : text = loginId + "님 환영 합니다."; break;
 				case "1" : text = "회원 가입이 완료되었습니다."; break;
 				case "2" : text = "회원 수정이 완료되었습니다."; break;
 				case "3" : text = "회원 탈퇴가 완료되었습니다."; break;

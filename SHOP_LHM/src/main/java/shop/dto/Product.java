@@ -95,7 +95,7 @@ public class Product implements Serializable {
 		return unitsInStock;
 	}
 
-	public void setUnitsInStock(long unitsInStock) {
+	public void setUnitsInStock(Integer unitsInStock) {
 		this.unitsInStock = unitsInStock;
 	}
 

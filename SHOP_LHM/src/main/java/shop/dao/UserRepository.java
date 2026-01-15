@@ -45,8 +45,28 @@ public class UserRepository extends JDBConnection {
 	 * @param pw
 	 * @return
 	 */
-	public User login(String id, String pw) {
-		return null;
+	public User login(String id, String pw) {		
+        String sql = "SELECT * FROM user WHERE id = ? AND password = ?";
+        
+        User user = null;
+        
+        try {
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, id);
+            psmt.setString(2, pw);
+            
+            rs = psmt.executeQuery();
+            
+            if (rs.next()) {
+                user = new User();                               
+                user.setId(rs.getString("id"));
+                user.setName(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
 	}
 
 	
