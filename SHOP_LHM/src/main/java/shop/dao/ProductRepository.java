@@ -12,7 +12,7 @@ public class ProductRepository extends JDBConnection {
 	 * @return
 	 */
 	public List<Product> list() {
-		String sql = "SELECT * FROM product ORDER BY product_id DESC";
+		String sql = "SELECT * FROM product ORDER BY product_id ASC";
         List<Product> list = new ArrayList<>();
         try {
             psmt = con.prepareStatement(sql);
@@ -44,9 +44,7 @@ public class ProductRepository extends JDBConnection {
 	 * @return
 	 */
 	public List<Product> list(String keyword) {
-		String sql = "SELECT * FROM product "
-	               + "WHERE name LIKE ? "
-	               + "ORDER BY product_id DESC";
+		String sql = "SELECT * FROM product WHERE CONCAT(name,' ',description) LIKE ? ORDER BY product_id ASC";
 		List<Product> list = new ArrayList<>();
         try {
             psmt = con.prepareStatement(sql);
