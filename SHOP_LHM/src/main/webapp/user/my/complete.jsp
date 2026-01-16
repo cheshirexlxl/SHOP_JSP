@@ -23,8 +23,8 @@
 			switch (msg) {
 				case "0" : text = loginId + "님 환영 합니다."; break;
 				case "1" : text = "회원 가입이 완료되었습니다."; break;
-				case "2" : text = "회원 수정이 완료되었습니다."; break;
-				case "3" : text = "회원 탈퇴가 완료되었습니다."; break;
+				case "2" : text = "회원 정보가 수정되었습니다."; break;
+				case "3" : text = "회원 정보가 삭제되었습니다."; break;
 				default: text = "요청이 정상적으로 처리되었습니다.";
 			}
 		} else {
