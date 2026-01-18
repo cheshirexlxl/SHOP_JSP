@@ -77,7 +77,35 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public User getUserById(String id) {
-		return null;
+		String sql = " SELECT id, password, name, gender, birth, mail, phone, address "
+	               + " FROM user "
+	               + " WHERE id = ? ";
+		
+		User user = null;
+		
+		 try {
+	        psmt = con.prepareStatement(sql);
+	        psmt.setString(1, id);
+	        rs = psmt.executeQuery();
+
+	        if (rs.next()) {
+	            user = new User();
+	            user.setId(rs.getString("id"));
+	            user.setPassword(rs.getString("password"));
+	            user.setName(rs.getString("name"));
+	            user.setGender(rs.getString("gender"));
+	            user.setBirth(rs.getString("birth"));
+	            user.setMail(rs.getString("mail"));
+	            user.setPhone(rs.getString("phone"));
+	            user.setAddress(rs.getString("address"));
+	        }
+
+	    } catch (Exception e) {
+	        System.err.println("사용자 조회 중 예외 발생");
+	        e.printStackTrace();
+	    }
+
+	    return user;
 	}
 	
 	
@@ -87,7 +115,27 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int update(User user) {
-		return 0;
+		int result = 0;
+		
+		String sql = " UPDATE user SET password = ?, name = ?, gender = ?, birth = ?, mail = ?, phone = ?, address = ? "
+				   + " WHERE id = ? ";
+		
+		try {
+			psmt = con.prepareStatement(sql);			
+			psmt.setString(1, user.getPassword());
+			psmt.setString(2, user.getName());
+			psmt.setString(3, user.getGender());
+			psmt.setString(4, user.getBirth());
+			psmt.setString(5, user.getMail());
+			psmt.setString(6, user.getPhone());
+			psmt.setString(7, user.getAddress());
+			psmt.setString(8, user.getId());
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			System.err.println("회원 등록 시, 예외 발생");
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 
@@ -97,7 +145,20 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int delete(String id) {
-		return 0;
+		int result = 0;
+
+	    String sql = "DELETE FROM user WHERE id = ?";
+
+	    try {
+	        psmt = con.prepareStatement(sql);
+	        psmt.setString(1, id);
+	        result = psmt.executeUpdate();
+	    } catch (Exception e) {
+	        System.err.println("회원 삭제 시 예외 발생");
+	        e.printStackTrace();
+	    }
+
+	    return result;
 	}
 	
 	/**

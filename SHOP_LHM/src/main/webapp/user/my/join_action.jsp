@@ -45,7 +45,7 @@
  	// 회원 가입이 성공하면 complete.jsp 페이지로 리다이렉트한다.
  	// 실패하면 join.jsp 페이지로 리다이렉트한다.
     if (result > 0) {
-        response.sendRedirect("complete.jsp?mag=1");
+        response.sendRedirect("complete.jsp?msg=1");
     } else {
         response.sendRedirect("join.jsp");
     }
