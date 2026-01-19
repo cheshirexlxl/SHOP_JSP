@@ -1,12 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-비회원 주문내역 세션에 등록 처리
-</body>
-</html>
+<%@page import="shop.dto.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="shop.dao.OrderRepository"%>
+
+<%
+	String root = request.getContextPath();
+	// TODO: 주문 조회 기능 구현
+	// 1. 파라미터 수집(전화번호, 주문비밀번호)
+	// 2. DB에서 주문내역 조회
+	// 3. 세션에 주문내역 저장
+	// 4. 주문내역 페이지로 리다이렉트
+	// ----------------------------------------------------
+	
+
+	// TODO:
+	// 1. 파라미터 수집(전화번호, 주문비밀번호)
+	// - 파라미터: phone, orderPw
+	// - DB에서 주문내역 조회
+	
+	String phone = request.getParameter("phone");
+	String orderPw = request.getParameter("orderPw");
+	
+	
+	// TODO:
+	// 2. DB에서 주문내역 조회
+	// - OrderRepository의 list(phone, orderPw) 메서드 사용
+	// - 리턴타입: List<Product>
+	// - 파라미터: 전화번호, 주문비밀번호
+	// - 리턴값: 주문내역 리스트
+	
+	OrderRepository orderDAO = new OrderRepository();
+	List<Product> orderList = orderDAO.list(phone, orderPw);
+	
+	
+	// TODO:
+	// 3. 세션에 주문내역 저장
+	// - 세션키: orderPhone, orderList
+	// - 세션값: 전화번호, 주문내역 리스트
+	
+	session.setAttribute("orderPhone", phone);
+	session.setAttribute("orderList", orderList);
+	
+	
+	// TODO:
+	// 4. 주문내역 페이지로 리다이렉트
+	// - 리다이렉트 URL: /user/my/order.jsp
+	
+	response.sendRedirect(root + "/user/my/order.jsp");
+	return;
+
+%>
