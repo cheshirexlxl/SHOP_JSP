@@ -10,7 +10,7 @@
 	// 장바구니 목록을 세션에서 가져오기
 	List<Product> cartList = (List<Product>) session.getAttribute("cartList");
 	if( cartList == null ) cartList = new ArrayList<Product>();
-	int cartCount = cartList.size();
+	int cartCount = cartList.size();	
 	
 	// 세션ID : 고유한 식별 정보 긴 문자열로 표현
 	String cartId = session.getId();

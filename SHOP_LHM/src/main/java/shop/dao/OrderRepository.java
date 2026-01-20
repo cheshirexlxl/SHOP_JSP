@@ -1,5 +1,6 @@
 package shop.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import shop.dto.Order;
@@ -16,21 +17,21 @@ public class OrderRepository extends JDBConnection {
 	public int insert(Order order) {
 		int result = 0;
 		
-		String sql = " INSERT INTO order(orderNo, cartId, shipName, zipCode, country, address, date, userId, totalPrice, phone, orderPw )"
+		String sql = " INSERT INTO order(order_no, ship_name, zip_code, country, address, date, order_pw, user_id, total_price, phone )"
 				   + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
 		try {
 			psmt = con.prepareStatement(sql);
-			psmt.setInt(1, order.getOrderNo());
-			psmt.setString(2, order.getCartId());
-			psmt.setString(3, order.getShipName());
-			psmt.setString(4, order.getZipCode());
-			psmt.setString(5, order.getCountry());
-			psmt.setString(6, order.getAddress());
-			psmt.setString(7, order.getDate());
+			psmt.setInt(1, order.getOrderNo());			
+			psmt.setString(2, order.getShipName());
+			psmt.setString(3, order.getZipCode());
+			psmt.setString(4, order.getCountry());
+			psmt.setString(5, order.getAddress());
+			psmt.setString(6, order.getDate());
+			psmt.setString(7, order.getOrderPw());
 			psmt.setString(8, order.getUserId());
-			psmt.setInt(8, order.getTotalPrice());
-			psmt.setString(8, order.getPhone());
-			psmt.setString(8, order.getOrderPw());
+			psmt.setInt(9, order.getTotalPrice());
+			psmt.setString(10, order.getPhone());
+			
 			result = psmt.executeUpdate();
 			
 			rs = psmt.executeQuery();
@@ -61,7 +62,28 @@ public class OrderRepository extends JDBConnection {
 	 * @return
 	 */
 	public List<Product> list(String userId) {
-		return null;
+		String sql =  "SELECT * FROM `order` WHERE user_id = ? ORDER BY order_no DESC";
+		List<Product> list = new ArrayList<>();
+		try {
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, userId);
+            rs = psmt.executeQuery();            
+            while(rs.next()) {
+            	Product p = new Product();
+            	p.setOrderNo(rs.getInt("order_no"));            	
+            	p.setUserId(rs.getString("user_id")); 
+            	p.setProductId(rs.getString("product_id"));
+                p.setName(rs.getString("name"));
+                p.setUnitPrice(rs.getInt("unit_price"));
+                p.setQuantity(rs.getInt("quantity"));
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+        return list;	
+        
 	}
 	
 	/**

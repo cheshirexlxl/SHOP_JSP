@@ -18,27 +18,30 @@ String orderPhone = (String) session.getAttribute("orderPhone");
 
 // 로그인 여부 확인
 boolean login = false;
-if( loginId != null && !loginId.isEmpty() ) {
-	// response.sendRedirect(root + "/");
+if( loginId != null && !loginId.isEmpty() ) {	
 	login = true;
 }
 
 // TODO: 주문내역 목록을 세션에서 가져오기
-List<Product> orderList = (List<Product>) session.getAttribute("orderList");
-
 // TODO: 주문내역 개수
-int orderCount = 0;
-
+List<Product> orderList = (List<Product>) session.getAttribute("orderList");
+if(orderList == null) orderList = new ArrayList<Product>();
+int orderCount = orderList.size();
 
 // TODO: 회원인 경우
 // - 로그인한 회원의 주문내역을 DB에서 가져오기
 // - orderList에 주문 내역 저장
 // - orderCount에 개수 저장
 OrderRepository orderDAO = new OrderRepository();
-if( (orderList == null || orderList.size() == 0  ) && login ) {
+if( (orderList == null || orderList.size() == 0  ) && login ) {	
 	orderList = orderDAO.list(loginId);
-	orderCount =  orderList.size();
+	orderCount =  orderList.size();	
+	session.setAttribute("orderList", orderList);
+	System.out.println("오더개수 : " + orderCount);
+	System.out.println("오더리스트 : " + orderList);
 }
+
+
 %>
 <jsp:include page="/layout/header.jsp" />
 <div class="row m-0 mypage">		
