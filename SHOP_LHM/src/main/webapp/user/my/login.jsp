@@ -61,9 +61,8 @@
 				<label class="form-check-label" for="flexCheckDefault1">아이디 저장</label>
 			</div>
 			<div class="item">
-				<input class="form-check-input" type="checkbox" name="remember-me"
-					id="flexCheckDefault2"> <label class="form-check-label"
-					for="flexCheckDefault2">자동 로그인</label>
+				<input class="form-check-input" type="checkbox" name="remember-me" id="flexCheckDefault2"> 
+				<label class="form-check-label" for="flexCheckDefault2">자동 로그인</label>
 			</div>
 
 		</div>

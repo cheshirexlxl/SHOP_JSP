@@ -9,12 +9,12 @@
 </div>
 <!-- 회원 가입 영역 -->
 <div class="container shop p-5 mb-5" >
-	<form action="join_action.jsp" name="joinForm" method="post" >
+	<form action="join_action.jsp" name="joinForm" method="post" onsubmit="return checkUser()">
 	
 		<div class="input-group mb-3 row">
 			<label class="input-group-text col-md-4" id="">아이디</label>
 			<input type="text" class="form-control col-md-8" 
-				   name="id" placeholder="아이디" required>
+				   name="id" id="userId" placeholder="아이디" required>
 		</div>
 		
 		<div class="input-group mb-3 row">
@@ -134,3 +134,5 @@
 
 <jsp:include page="/layout/script.jsp" />
 <jsp:include page="/layout/footer.jsp" />
+
+

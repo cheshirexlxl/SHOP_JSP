@@ -38,6 +38,26 @@ public class UserRepository extends JDBConnection {
 		return result;
 	}
 	
+	/**
+	 * 회원 등록 아이디 중복확인
+	 * @param userId
+	 * @return
+	 */
+	public boolean userIdCheck(String userId) {
+	    String sql = "SELECT COUNT(*) FROM user WHERE id = ?";
+	    try {
+	        psmt = con.prepareStatement(sql);
+	        psmt.setString(1, userId); 
+	        rs = psmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1) > 0;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
 	
 	/**
 	 * 로그인을 위한 사용자 조회

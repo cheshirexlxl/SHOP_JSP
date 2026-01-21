@@ -14,6 +14,8 @@
 	<div class="col-lg-6 mx-auto">
 		<p class="lead mb-4">쇼핑몰 상품 목록 입니다.</p>
 		<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+			<a href="${ root }/admin/product/add.jsp" class="btn btn-primary btn-lg px-4 gap-3">상품 등록</a>			
+			<a href="${ root }/admin/product/list.jsp" class="btn btn-success btn-lg px-4 gap-3">상품 편집</a>
 			<a href="${ root }/user/cart/detail.jsp" class="btn btn-warning btn-lg px-4 gap-3">장바구니</a>
 		</div>
 	</div>

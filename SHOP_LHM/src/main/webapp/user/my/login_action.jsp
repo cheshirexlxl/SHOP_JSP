@@ -34,7 +34,7 @@
     
 	// - 주문목록(orderList) 초기화
 	//  (로그인 후 주문목록은 새로 조회해야 하므로 null로 설정)
-	// session.setAttribute("orderList", null);
+	session.setAttribute("orderList", null);
 	
 	// TODO: 쿠키 전달
 	// - 모든 경로에서 접근 가능하도록 설정

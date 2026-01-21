@@ -13,25 +13,22 @@ import java.io.IOException;
 @WebFilter("/AuthenFilter")
 public class AuthenFilter extends HttpFilter implements Filter {
 
-    public AuthenFilter() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	public void destroy() {
-		// TODO Auto-generated method stub
+	
+	public AuthenFilter() {
+		super();		
 	}
-
+	
+	public void init(FilterConfig fConfig) throws ServletException {
+		System.out.println("AuthenFilter 초기화 - init()...");
+	}
+	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-
-		// pass the request along the filter chain
+		System.out.println("AuthenFilter 필터 - doFilter()...");
 		chain.doFilter(request, response);
 	}
 
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+	public void destroy() {
+		System.out.println("AuthenFilter 해제 - destoroy()...");
 	}
 
 }
