@@ -19,12 +19,9 @@
 	String ship_phone = "";
 	
 	// TODO: request에서 쿠키 배열을 가져오기
-	// Cookie[] cookies = ???;
 	Cookie[] cookies =  request.getCookies();
 	
 	// TODO: 쿠키 배열이 null이 아니면 반복문으로 각 쿠키 처리
-	// 힌트: 쿠키 이름을 확인하고 switch문으로 각 변수에 값 할당
-	// 힌트: URLDecoder.decode()를 사용하여 쿠키 값을 UTF-8로 디코딩
 	if( cookies != null ) {
 		for(int i = 0 ; i < cookies.length ; i++) {
 			Cookie cookie = cookies[i];
@@ -37,23 +34,17 @@
 			 	case "ship_country" 		: ship_country = cookieValue;		break;
 			 	case "ship_zipCode" 		: ship_zipCode = cookieValue;		break;
 			 	case "ship_addressName" 	: ship_addressName = cookieValue;	break;
-			 	case "ship_phone" 			: ship_phone = cookieValue;	break;
+			 	case "ship_phone" 			: ship_phone = cookieValue;			break;
 			}
 		}
-	}
+	}	
 	
-	
-	// TODO: 세션에서 장바구니 목록(cartList) 가져오기
-	// 힌트: session.getAttribute("cartList")를 사용하고 List<Product> 타입으로 캐스팅
-	// List<Product> cartList = null;
-	// TODO: cartList가 null이면 새 ArrayList<Product>() 생성
-	
+	// TODO: 세션에서 장바구니 목록(cartList) 가져오기	
 	List<Product> cartList = (List<Product>) session.getAttribute("cartList");
 	if( cartList == null ) cartList = new ArrayList<Product>();
 	
 	
 	// TODO: 로그인 여부 확인
-	// 힌트: loginId 변수를 확인하여 login 변수(boolean)와 order_type 변수(String) 설정
 	String order_type = "";
 	boolean login = false;
 	if (loginId != null && !loginId.isEmpty()) {
@@ -102,8 +93,7 @@
 			</tr>
 			<%
 				// TODO: 로그인하지 않은 경우(!login)에만 주문 비밀번호 입력 필드 표시
-				if( !login ) {
-				
+				if( !login ) {				
 			%>		
 			<tr>
 				<td>주문 비밀번호 :</td>
@@ -130,17 +120,7 @@
 			<tbody>
 				<%
 					// TODO: 총 금액 계산을 위한 변수 선언 및 초기화
-					// TODO: cartList의 모든 상품을 반복하며 출력
-					// 힌트: for문 또는 향상된 for문 사용 (i < cartList.size())
-					
-						// TODO: i번째 상품 가져오기
-						// Product product = ???;
-						
-						// TODO: 소계 계산 (상품 단가 * 수량)
-						// int total = ???;
-						
-						// TODO: 총 금액에 소계 더하기
-						
+					// TODO: cartList의 모든 상품을 반복하며 출력							
 					int sum = 0;
 					for(int i = 0 ; i < cartList.size() ; i++) {
 						Product product = cartList.get(i);
@@ -157,7 +137,6 @@
 			    <% } %>	
 				<%		
 					// TODO: 장바구니가 비어있는지 확인
-					// 힌트: cartList.isEmpty() 사용
 					if( cartList.isEmpty() ) {
 					
 				%>
@@ -177,7 +156,6 @@
 				%>
 			</tfoot>
 		</table>
-
 	</div>
 	
 	<!-- 버튼 영역 -->

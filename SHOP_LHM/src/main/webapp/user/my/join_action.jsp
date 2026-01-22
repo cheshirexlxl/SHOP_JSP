@@ -21,13 +21,7 @@
 	String phone = request.getParameter("phone");
 	String address = request.getParameter("address");	
 	
-	
-	// 비밀번호 확인
-    if (!pw.equals(pw_confirm)) {
-        response.sendRedirect("join.jsp");
-        return;
-    }       
-    
+
  	// TODO: User 객체에 회원 가입 정보를 설정한다.
     user.setId(id);
     user.setPassword(pw);
@@ -40,8 +34,7 @@
        
     
 	// TODO: 회원 정보 등록 요청
- 	// UserRepository 객체를 생성하고 insert() 메서드를 호출하여 회원 정보를 데이터베이스에 저장한다.
-	// UserRepository userRepository = new UserRepository();
+ 	// UserRepository 객체를 생성하고 insert() 메서드를 호출하여 회원 정보를 데이터베이스에 저장한다.	
 	UserRepository userRepository = new UserRepository();
     int result = userRepository.insert(user);
 

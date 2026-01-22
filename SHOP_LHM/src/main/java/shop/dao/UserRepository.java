@@ -152,7 +152,7 @@ public class UserRepository extends JDBConnection {
 			psmt.setString(8, user.getId());
 			result = psmt.executeUpdate();
 		} catch (Exception e) {
-			System.err.println("회원 등록 시, 예외 발생");
+			System.err.println("회원 수정 시, 예외 발생");
 			e.printStackTrace();
 		}
 		return result;

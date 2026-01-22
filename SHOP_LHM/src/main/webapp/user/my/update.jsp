@@ -9,13 +9,13 @@ request.setAttribute("dp0", "lnb");
 request.setAttribute("dp1", "my");
 request.setAttribute("dp2", "update");
 
-UserRepository userDAO = new UserRepository();
-User loginUser = userDAO.getUserById(loginId);
 
 if( loginId == null || loginId.equals("") ) {
 	response.sendRedirect(root + "/");
 }
 
+UserRepository userDAO = new UserRepository();
+User loginUser = userDAO.getUserById(loginId);
 
 // 이메일 : 아이디@도메인 분리
 String mail = loginUser.getMail();

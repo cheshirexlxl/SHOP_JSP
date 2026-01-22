@@ -67,11 +67,8 @@
 			<div class="mt-4">
 				<form name="addForm" action="${ root }/user/cart/add_action.jsp" method="post">
 					<input type="hidden" name="id" value="<%= product.getProductId() %>" />
-					<div class="btn-box d-flex justify-content-end ">
-						<!-- [NEW] 장바구니 버튼 추가 -->
-						<a href="${ root }/user/cart/detail.jsp" class="btn btn-lg btn-warning mx-3">장바구니</a>
-						
-						<!-- 페이지 이동 막기 :  href="javascript:;" -->			
+					<div class="btn-box d-flex justify-content-end ">						
+						<a href="${ root }/user/cart/detail.jsp" class="btn btn-lg btn-warning mx-3">장바구니</a>								
 						<a href="javascript:void(0);" class="btn btn-lg btn-success mx-3" onclick="addToCart()">주문하기</a>
 					</div>
 				</form>
@@ -80,7 +77,8 @@
 	</div>
 </div>
 
-<jsp:include page="/layout/script.jsp" /><script>
+<jsp:include page="/layout/script.jsp" />
+<script>
 	
 	// 장바구니 추가
 	function addToCart() {

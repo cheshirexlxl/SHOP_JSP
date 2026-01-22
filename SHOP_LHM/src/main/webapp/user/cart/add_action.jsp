@@ -20,8 +20,7 @@
 	
 	// 존재하지 않는 상품일 때
 	if( product == null ) {		
-		response.sendRedirect(root + "error/exception");
-		// 테스트 해보기
+		response.sendRedirect(root + "error/exception");		
 	}
 	
 	// TODO: 장바구니 목록 세션 정보 등록
@@ -50,7 +49,6 @@
 		product.setQuantity(1);			// 최초 장바구니 개수 1
 		list.add(product);				// 장바구니 목록에 신규 상품 추가
 	}
-
 
 	// TODO: 상품 목록 페이지로 이동
 	response.sendRedirect(root + "/user/product/list.jsp");

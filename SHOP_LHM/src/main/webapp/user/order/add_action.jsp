@@ -12,8 +12,7 @@
 <% 
 	String root = request.getContextPath();
 
-	// TODO: 쿠키에 저장된 배송정보를 저장할 변수 선언 및 초기화
-	// 힌트: ship_cartId, ship_name, ship_date, ship_country, ship_zipCode, ship_addressName, ship_phone
+	// TODO: 쿠키에 저장된 배송정보를 저장할 변수 선언 및 초기화	
 	String ship_cartId = "";
 	String ship_name = "";
 	String ship_date = "";
@@ -23,9 +22,13 @@
 	String ship_phone = "";
 
 	
+	// TODO: 쿠키 배열이 null이 아니면 반복문으로 각 쿠키 처리
 	Cookie[] cookies = request.getCookies();
+	
+	// Order 객체 생성
 	Order order = new Order();	
 
+	// 쿠키에서 배송 정보 꺼내기
 	if( cookies != null ) {
 		for(int i = 0 ; i < cookies.length ; i++) {
 			Cookie cookie = cookies[i];
@@ -43,29 +46,36 @@
 		}
 	}		
 
+	// TODO: 세션에서 로그인 아이디 가져오기
 	String loginId = (String) session.getAttribute("loginId");
 	loginId = loginId != null ? loginId : "";	
 
+	// TODO: 회원/비회원 주문 처리를 위한 파라미터 가져오기
 	String loginStr = request.getParameter("login");
+	
+	// 총 금액
 	String totalPrice = request.getParameter("totalPrice");
-
-	int total = 0;	
+	int total = 0;
 
 	if(totalPrice != null && !totalPrice.isEmpty()) {
 		total = Integer.parseInt(totalPrice);
 	}	
 	order.setTotalPrice(total);
 
+	// 비회원 주문 비밀번호
 	String orderPw = request.getParameter("orderPw");
 	order.setOrderPw(orderPw);
-	order.setUserId(loginId);
 
+	// TODO: 주문 내역 등록
 	OrderRepository orderDAO = new OrderRepository();
 
-	int orderNo = orderDAO.insert(order);	
+	int orderNo = orderDAO.insert(order);
+	
 
+	// TODO: 세션에서 장바구니 목록 가져오기
 	List<Product> cartList = (List<Product>) session.getAttribute("cartList");	
 
+	// 객체 생성
 	ProductIORepository productIODAO = new ProductIORepository();
 	ProductRepository productDAO = new ProductRepository();
 	
@@ -73,15 +83,17 @@
 	    for (Product product : cartList) {
 	        product.setOrderNo(orderNo);
 	        product.setUserId(loginId);
-	        product.setType("OUT");              // 출고
+	        product.setType("OUT");              // 상품 입출고 타입
 
-	        productIODAO.insert(product);        // 입출고 등록
-	        productDAO.update(product);          // 재고 감소
+	        // productIODAO.insert(product);     // 출고 등록
+	        productDAO.update(product);          // 상품 재고수 갱신	       
 	    }
 	}
+	System.out.println("orderNo test : " + orderNo);
 
 	// 장바구니 세션 삭제
 	session.setAttribute("cartList", null);
+	
 	// 배송 쿠키 삭제
 	if (cookies != null) {
 	    for (int i = 0; i < cookies.length; i++) {

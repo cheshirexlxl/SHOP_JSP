@@ -28,7 +28,7 @@
 			 	case "ship_country" 		: ship_country = cookieValue;		break;
 			 	case "ship_zipCode" 		: ship_zipCode = cookieValue;		break;
 			 	case "ship_addressName" 	: ship_addressName = cookieValue;	break;
-			 	case "ship_phone" 			: ship_phone = cookieValue;	break;
+			 	case "ship_phone" 			: ship_phone = cookieValue;			break;
 			}
 		}
 	}

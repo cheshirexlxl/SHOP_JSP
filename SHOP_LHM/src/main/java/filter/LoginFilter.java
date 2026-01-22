@@ -40,14 +40,13 @@ public class LoginFilter extends HttpFilter implements Filter {
 		 * - 쿠키 정보 "rememberMe", "token"을 가져와 변수에 저장한다.
 		 * - 쿠키 정보 "rememberMe", "token" 가 모두 존재하는 경우, 자동 로그인을 설정한 경우로 판단한다.
 		 * - 자동 로그인을 설정한 경우, 테이블 [persistent_logins] 에서 해당 token을 조건으로 login_id를 조회하여 session 에 "loginId" 라는 속성명으로 등록한다.
-		 */
-		
+		 */		
 		
 		// 쿠키 확인
     	// 1. 자동 로그인 여부
-    	// 2. 인증 토큰 검증
-		
+    	// 2. 인증 토큰 검증		
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpSession session = httpRequest.getSession();
     	Cookie[] cookies = httpRequest.getCookies();
     	
     	String rememberMe = null;		// 자동 로그인 여부
@@ -67,11 +66,8 @@ public class LoginFilter extends HttpFilter implements Filter {
     	System.out.println("rememberMe : " + rememberMe);
     	System.out.println("token : " + token);
     	
-    	// 로그인 여부 확인
-    	HttpSession session = httpRequest.getSession();
-    	String loginId = (String) session.getAttribute("loginId");    	
-    	
-    	System.out.println("loginId : " + loginId);    	
+    	// 로그인 여부 확인    	
+    	String loginId = (String) session.getAttribute("loginId"); 
     	
     	// 이미 로그인 됨
 		if( loginId != null ) {
@@ -84,17 +80,13 @@ public class LoginFilter extends HttpFilter implements Filter {
     	if( rememberMe != null && token != null ) {
     		System.out.println("rememberMe : " + rememberMe);
     		System.out.println("token : " + token);
-    		PersistentLogin persistentLogin = userDAO.selectTokenByToken(token);
-    		System.out.println("persistentLogin : " + persistentLogin);    		
+    		PersistentLogin persistentLogin = userDAO.selectTokenByToken(token);    		  		
     		// 토큰이 존재 & 유효 OK
     		if( persistentLogin != null ) {
-    			loginId = persistentLogin.getUserId();
-    			User user = userDAO.getUserById(loginId);
-    			String name = user.getName();
-				System.out.println("loginId : " + loginId);				
-				// 로그인 처리
-				session.setAttribute("loginId", loginId);
-				session.setAttribute("name", name);
+    			loginId = persistentLogin.getUserId(); 
+    			session.setAttribute("loginId", loginId);
+    			
+				System.out.println("loginId : " + loginId);								
 				System.out.println("자동 로그인 성공!");   			
     		}
     	}		

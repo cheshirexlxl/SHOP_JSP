@@ -33,24 +33,24 @@
 			for(int i = 0 ; i < productList.size() ; i++) {
 				Product product = productList.get(i);
 		%>
-			<div class="col-md-6 col-xl-4 col-xxl-3">
-				<div class="card p-3">
-					<!-- 이미지 영역 -->
-					<div class="img-content">
-						<img src="${ root }/img?id=<%= product.getProductId() %>" class="w-100 p-2" />
-					</div>
-					<!-- 컨텐츠 영역 -->
-					<div class="content">
-						<h3 class="text-center"><%= product.getName() %></h3>
-						<p><%= product.getDescription() %></p>
-						<p class="text-end price">₩ <%= product.getUnitPrice() %></p>
-						<p class="d-flex justify-content-between">
-							<a href="${ root }/user/cart/add_action.jsp?id=<%= product.getProductId() %>" class="btn btn-outline-primary"><i class="material-symbols-outlined">shopping_bag</i></a>
-							<a href="${ root }/user/product/detail.jsp?id=<%= product.getProductId() %>" class="btn btn-outline-primary">상세 정보</a>
-						</p>
-					</div>						
+		<div class="col-md-6 col-xl-4 col-xxl-3">
+			<div class="card p-3">
+				<!-- 이미지 영역 -->
+				<div class="img-content">
+					<img src="${ root }/img?id=<%= product.getProductId() %>" class="w-100 p-2" />
 				</div>
+				<!-- 컨텐츠 영역 -->
+				<div class="content">
+					<h3 class="text-center"><%= product.getName() %></h3>
+					<p><%= product.getDescription() %></p>
+					<p class="text-end price">₩ <%= product.getUnitPrice() %></p>
+					<p class="d-flex justify-content-between">
+						<a href="${ root }/user/cart/add_action.jsp?id=<%= product.getProductId() %>" class="btn btn-outline-primary"><i class="material-symbols-outlined">shopping_bag</i></a>
+						<a href="${ root }/user/product/detail.jsp?id=<%= product.getProductId() %>" class="btn btn-outline-primary">상세 정보</a>
+					</p>
+				</div>						
 			</div>
+		</div>
 		<%
 			}
 		%>
@@ -62,7 +62,6 @@
 		<% } %>
 	</div>
 </div>
-
 
 <jsp:include page="/layout/script.jsp" />
 <jsp:include page="/layout/footer.jsp" />

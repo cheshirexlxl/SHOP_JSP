@@ -1,5 +1,6 @@
 package shop.dao;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,36 +16,34 @@ public class OrderRepository extends JDBConnection {
 	 * @return
 	 */
 	public int insert(Order order) {
-		int result = 0;
-		
-		String sql = " INSERT INTO order(order_no, ship_name, zip_code, country, address, date, order_pw, user_id, total_price, phone )"
-				   + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
+		int orderNo = 0;		
+		String sql = " INSERT INTO order(ship_name, zip_code, country, address, date, order_pw, user_id, total_price, phone )"
+				   + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
 		try {
-			psmt = con.prepareStatement(sql);
-			psmt.setInt(1, order.getOrderNo());			
-			psmt.setString(2, order.getShipName());
-			psmt.setString(3, order.getZipCode());
-			psmt.setString(4, order.getCountry());
-			psmt.setString(5, order.getAddress());
-			psmt.setString(6, order.getDate());
-			psmt.setString(7, order.getOrderPw());
-			psmt.setString(8, order.getUserId());
-			psmt.setInt(9, order.getTotalPrice());
-			psmt.setString(10, order.getPhone());
+			psmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
+			psmt.setString(1, order.getShipName());
+			psmt.setString(2, order.getZipCode());
+			psmt.setString(3, order.getCountry());
+			psmt.setString(4, order.getAddress());
+			psmt.setString(5, order.getDate());
+			psmt.setString(6, order.getOrderPw());
+			psmt.setString(7, order.getUserId());
+			psmt.setInt(8, order.getTotalPrice());
+			psmt.setString(9, order.getPhone());
 			
-			result = psmt.executeUpdate();
+			int result = psmt.executeUpdate();
 			
-			rs = psmt.executeQuery();
-            
-            if (rs.next()) {
-            	order = new Order();                               
-            	order.setOrderNo(rs.getInt("order_no"));
-            }
+			if (result > 0) {
+	            rs = psmt.getGeneratedKeys();
+	            if (rs.next()) {
+	                orderNo = rs.getInt(1); // 자동 생성된 order_no
+	            }
+	        }
 		} catch (Exception e) {
-			System.err.println("회원 등록 시, 예외 발생");
+			System.err.println("주문 등록 중, 예외 발생");
 			e.printStackTrace();
 		}
-		return result;
+		return orderNo;
 	}
 
 	/**

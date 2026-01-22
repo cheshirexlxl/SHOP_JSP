@@ -120,8 +120,8 @@ public class ProductRepository extends JDBConnection {
 	 * @return
 	 */
 	public int insert(Product product) {
-		String sql = "INSERT INTO product (product_id, name, unit_price, description, manufacturer, category, units_in_stock, `condition`, file, quantity) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = " INSERT INTO product (product_id, name, unit_price, description, manufacturer, category, units_in_stock, `condition`, file, quantity) "
+                   + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	     int result = 0;
 	     try {
 	         psmt = con.prepareStatement(sql);
