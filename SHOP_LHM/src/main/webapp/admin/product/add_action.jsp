@@ -18,7 +18,7 @@
 	ServletContext context = getServletContext();
 	String rootPath = context.getRealPath("/");
 	String path = rootPath + "/UPLOAD";
-// 	String path = "/UPLOAD";	
+	// String path = "/UPLOAD";	
 	
 	// 업로드 디렉토리 생성
 	File uploadDir = new File(path);

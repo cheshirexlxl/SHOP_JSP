@@ -6,15 +6,17 @@
 <%@page import="java.util.List"%>
 <%@page import="shop.dao.UserRepository"%>
 <%@page import="shop.dto.User"%>
+<%@page import="shop.dto.Order"%>
 <%@ include file="/layout/jstl.jsp" %>
 <%@ include file="/layout/common.jsp" %>
 <%
 request.setAttribute("dp0", "lnb");
 request.setAttribute("dp1", "my");
-request.setAttribute("dp2", "order");
+request.setAttribute("dp2", "order");	
 
 //비회원 주문 조회를 위한 세션 값 - orderPhone(전화번호)
 String orderPhone = (String) session.getAttribute("orderPhone");
+
 
 // 로그인 여부 확인
 boolean login = false;
@@ -36,11 +38,7 @@ OrderRepository orderDAO = new OrderRepository();
 if( (orderList == null || orderList.size() == 0  ) && login ) {	
 	orderList = orderDAO.list(loginId);
 	orderCount =  orderList.size();	
-	session.setAttribute("orderList", orderList);
-	System.out.println("오더개수 : " + orderCount);
-	System.out.println("오더리스트 : " + orderList);
 }
-
 
 %>
 <jsp:include page="/layout/header.jsp" />
@@ -124,6 +122,7 @@ if( (orderList == null || orderList.size() == 0  ) && login ) {
 					</tr>
 					<% } else { %>
 					<tr>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td>총액</td>

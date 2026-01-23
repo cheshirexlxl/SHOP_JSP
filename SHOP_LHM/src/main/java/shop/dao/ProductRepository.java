@@ -32,6 +32,7 @@ public class ProductRepository extends JDBConnection {
                 list.add(p);
             }
         } catch (Exception e) {
+        	System.err.println("상품 목록 조회 중, 예외 발생");
             e.printStackTrace();
         }
         return list;		
@@ -102,7 +103,7 @@ public class ProductRepository extends JDBConnection {
 	            product.setDescription(rs.getString("description"));
 	            product.setManufacturer(rs.getString("manufacturer"));
 	            product.setCategory(rs.getString("category"));
-	            product.setUnitsInStock(rs.getInt("units_in_stock"));
+	            product.setUnitsInStock(rs.getInt("units_in_stock")); // 재고 반영
 	            product.setCondition(rs.getString("condition"));
 	            product.setFile(rs.getString("file"));
 	            product.setQuantity(rs.getInt("quantity"));
@@ -195,6 +196,6 @@ public class ProductRepository extends JDBConnection {
             e.printStackTrace();
         }
         return result;
-	}
-	
+	}	
+
 }

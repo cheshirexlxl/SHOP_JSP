@@ -6,7 +6,6 @@ import java.util.List;
 
 import shop.dto.Order;
 import shop.dto.Product;
-import shop.dto.User;
 
 public class OrderRepository extends JDBConnection {
 
@@ -17,7 +16,7 @@ public class OrderRepository extends JDBConnection {
 	 */
 	public int insert(Order order) {
 		int orderNo = 0;		
-		String sql = " INSERT INTO order(ship_name, zip_code, country, address, date, order_pw, user_id, total_price, phone )"
+		String sql = " INSERT INTO `order` (ship_name, zip_code, country, address, date, order_pw, user_id, total_price, phone )"
 				   + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
 		try {
 			psmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
@@ -61,7 +60,24 @@ public class OrderRepository extends JDBConnection {
 	 * @return
 	 */
 	public List<Product> list(String userId) {
-		String sql =  "SELECT * FROM `order` WHERE user_id = ? ORDER BY order_no DESC";
+		String sql = " SELECT "
+				   + " io.order_no, "
+				   + " io.user_id, "
+				   + " io.type, "
+				   + " io.amount AS quantity, "
+	               + " p.product_id, "
+	               + " p.name, "
+	               + " p.unit_price, "
+	               + " p.description, "
+	               + " p.manufacturer, "
+	               + " p.category, "
+	               + " p.units_in_stock, "
+	               + " p.condition, "
+	               + " p.file "
+	               + " FROM product_io io "
+	               + " JOIN product p ON io.product_id = p.product_id "
+	               + " WHERE io.user_id = ? "
+	               + " ORDER BY io.order_no ASC";
 		List<Product> list = new ArrayList<>();
 		try {
             psmt = con.prepareStatement(sql);
@@ -70,20 +86,30 @@ public class OrderRepository extends JDBConnection {
             while(rs.next()) {
             	Product p = new Product();
             	p.setOrderNo(rs.getInt("order_no"));            	
-            	p.setUserId(rs.getString("user_id")); 
+            	p.setUserId(rs.getString("user_id"));   
+            	p.setType(rs.getString("type"));
+                
             	p.setProductId(rs.getString("product_id"));
                 p.setName(rs.getString("name"));
                 p.setUnitPrice(rs.getInt("unit_price"));
+                p.setDescription(rs.getString("description"));
+                p.setManufacturer(rs.getString("manufacturer"));
+                p.setCategory(rs.getString("category"));
+                p.setUnitsInStock(rs.getInt("units_in_stock"));
+                p.setCondition(rs.getString("condition"));
+                p.setFile(rs.getString("file"));
                 p.setQuantity(rs.getInt("quantity"));
                 list.add(p);
             }
         } catch (Exception e) {
+        	System.err.println("주문 내역 조회 중, 예외 발생");
             e.printStackTrace();
         }
 		
         return list;	
         
 	}
+
 	
 	/**
 	 * 주문 내역 조회 - 비회원
@@ -92,7 +118,52 @@ public class OrderRepository extends JDBConnection {
 	 * @return
 	 */
 	public List<Product> list(String phone, String orderPw) {
-		return null;		
+		String sql = " SELECT "
+				   + " p.product_id, "
+				   + " p.name, "
+				   + " p.unit_price, "
+				   + " p.description, "
+				   + " p.manufacturer, " 
+				   + " p.category, "
+				   + " p.units_in_stock, "
+				   + " p.condition, "
+				   + " p.file, "
+				   + " io.amount, "
+				   + " io.type, "
+				   + " o.order_no " 
+				   + " FROM `order` o " 
+				   + " JOIN product_io io ON o.order_no = io.order_no " 
+				   + " JOIN product p ON io.product_id = p.product_id " 
+				   + " WHERE o.phone = ? AND o.order_pw = ? " 
+				   + " ORDER BY o.order_no DESC ";
+		List<Product> list = new ArrayList<>();
+		try {
+         psmt = con.prepareStatement(sql);
+         psmt.setString(1, phone);
+         psmt.setString(2, orderPw);
+         rs = psmt.executeQuery();            
+         while(rs.next()) {
+         	 Product p = new Product();             
+         	 p.setProductId(rs.getString("product_id"));
+	         p.setName(rs.getString("name"));
+	         p.setUnitPrice(rs.getInt("unit_price"));
+	         p.setDescription(rs.getString("description"));
+	         p.setManufacturer(rs.getString("manufacturer"));
+	         p.setCategory(rs.getString("category"));
+	         p.setUnitsInStock(rs.getInt("units_in_stock"));
+	         p.setCondition(rs.getString("condition"));
+	         p.setFile(rs.getString("file"));	        
+	         p.setQuantity(rs.getInt("amount"));
+	         p.setType(rs.getString("type"));
+	         p.setOrderNo(rs.getInt("order_no"));         	
+	         list.add(p);
+         }
+     } catch (Exception e) {
+     	System.err.println("비회원 주문 내역 조회 중, 예외 발생");
+         e.printStackTrace();
+     }
+		
+     return list;
 	}
 	
 }

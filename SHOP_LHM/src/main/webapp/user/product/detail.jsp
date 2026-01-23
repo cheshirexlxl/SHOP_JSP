@@ -24,7 +24,7 @@
 <%
 	String productId = request.getParameter("id");
 	// TODO: ProductRepository 객체를 사용하여 상품ID에 해당하는 상품 정보 가져오기
-	Product product = productDAO.getProductById(productId);
+	Product product = productDAO.getProductById(productId);	
 %>
 <div class="container">
 	<div class="row">

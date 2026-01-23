@@ -49,6 +49,7 @@
 	// TODO: 세션에서 로그인 아이디 가져오기
 	String loginId = (String) session.getAttribute("loginId");
 	loginId = loginId != null ? loginId : "";	
+	order.setUserId(loginId);
 
 	// TODO: 회원/비회원 주문 처리를 위한 파라미터 가져오기
 	String loginStr = request.getParameter("login");
@@ -67,14 +68,13 @@
 	order.setOrderPw(orderPw);
 
 	// TODO: 주문 내역 등록
-	OrderRepository orderDAO = new OrderRepository();
-
-	int orderNo = orderDAO.insert(order);
+	OrderRepository orderDAO = new OrderRepository();	
+	int orderNo = orderDAO.insert(order);		
 	
 
 	// TODO: 세션에서 장바구니 목록 가져오기
-	List<Product> cartList = (List<Product>) session.getAttribute("cartList");	
-
+	List<Product> cartList = (List<Product>) session.getAttribute("cartList");		
+	
 	// 객체 생성
 	ProductIORepository productIODAO = new ProductIORepository();
 	ProductRepository productDAO = new ProductRepository();
@@ -83,13 +83,12 @@
 	    for (Product product : cartList) {
 	        product.setOrderNo(orderNo);
 	        product.setUserId(loginId);
-	        product.setType("OUT");              // 상품 입출고 타입
+	        product.setType("OUT");              // 상품 입출고 타입	       
 
-	        // productIODAO.insert(product);     // 출고 등록
-	        productDAO.update(product);          // 상품 재고수 갱신	       
+	        productIODAO.insert(product);     	 // 출고 등록
+	        productDAO.update(product);          // 상품 재고수 갱신		        
 	    }
-	}
-	System.out.println("orderNo test : " + orderNo);
+	}	
 
 	// 장바구니 세션 삭제
 	session.setAttribute("cartList", null);
